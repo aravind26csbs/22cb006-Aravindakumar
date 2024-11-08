@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - name: print hello world
-       run: echo "Hello World!"
+       run: echo "Hello World !!"
      - name: print Registration No
        run: echo "22cb006"
      - name: print name
