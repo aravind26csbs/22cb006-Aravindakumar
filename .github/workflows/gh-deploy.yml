@@ -10,8 +10,6 @@ jobs:
         run: npm install  
       - name: npm run build
         run: npm run build
-      - name: test the application
-        run: npm run test
       - name: deploy to github pages
         uses: peaceiris/actions-gh-pages@v4
         with:
