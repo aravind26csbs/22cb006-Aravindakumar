@@ -2,6 +2,7 @@
   "name": "devops_learn",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://aravind26csbs.github.io/22cb006-Aravindakumar/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
