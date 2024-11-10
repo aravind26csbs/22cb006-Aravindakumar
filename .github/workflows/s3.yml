@@ -1,1 +1,47 @@
+name: Deploy to AWS S3 + CloudFront
+
+on:
+  push:
+    branches:
+      - main  
+      
+permissions:
+  contents: read  
+  id-token: write  
+  actions: read  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  
+
+      - name: Install dependencies
+        run: npm install  
+
+      - name: Build the project
+        run: npm run build  
+
+      - name: Configure AWS CLI
+        run: |
+          aws --version
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region us-east-1  # Set your AWS region (change if needed)
+
+      - name: Sync build to S3
+        run: |
+          aws s3 sync ./build/ s3://your-s3-bucket-name --delete --exclude '.git/*'  # Sync build folder to S3
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id YOUR_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"  # Invalidate cache to clear old content
+
 
